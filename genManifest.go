@@ -25,7 +25,7 @@ type Shader struct{
 
 // Shaders contains all of the compiled shaders, accessible via IDs
 var Shaders = []Shader{
-{{ range $e := .Shaders }}	Shader{
+{{ range $e := .Shaders }}	{
 		Source:     "{{ $e.Source }}",
 		BinaryData: {{ $e.BinaryData }},
 	},

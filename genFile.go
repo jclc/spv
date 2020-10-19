@@ -27,7 +27,7 @@ func makeSliceIdentifier(s string) string {
 }
 
 func operate(f string, statusChan chan string) (bool, error) {
-	inFileName := filepath.Join(dir, f)
+	inFileName := f
 	inStat, err := os.Stat(inFileName)
 	if err != nil {
 		return false, err

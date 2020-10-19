@@ -61,9 +61,12 @@ func main() {
 
 func run() (exitcode int) {
 	parseArgs()
-	if dir == "" {
-		fmt.Println("No input file directory specified")
-		return 1
+	if dir != "" {
+		err := os.Chdir(dir)
+		if err != nil {
+			fmt.Println("Invalid directory", dir)
+			return 1
+		}
 	}
 
 	if pkg == "" {
@@ -164,7 +167,7 @@ func parseArgs() {
 }
 
 func getFiles() (exitcode int) {
-	d, err := os.Stat(dir)
+	d, err := os.Stat(".")
 	if os.IsNotExist(err) {
 		fmt.Printf("%s error: Directory %s does not exist\n", os.Args[0], dir)
 		return 1
@@ -175,7 +178,7 @@ func getFiles() (exitcode int) {
 		return 1
 	}
 
-	fs, err := ioutil.ReadDir(dir)
+	fs, err := ioutil.ReadDir(".")
 	if err != nil {
 		fmt.Printf("%s error: Cannot read directory contents: %v\n", os.Args[0], err)
 	}
